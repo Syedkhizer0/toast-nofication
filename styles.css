@@ -1,0 +1,51 @@
+body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: Arial; background: #f4f4f9; }
+button { padding: 10px 20px; font-size: 16px; border: none; border-radius: 5px; background: #007bff; color: white; cursor: pointer; transition: background-color .3s; }
+button:hover { background: #0056b3; }
+
+.toast {
+  visibility: hidden;
+  min-width: 300px;
+  background: #4caf50;
+  color: white;
+  text-align: left;
+  border-radius: 5px;
+  padding: 15px 20px;
+  position: fixed;
+  top: 20px; right: 20px;
+  opacity: 0;
+  transition: opacity .5s, visibility .5s, top .5s;
+  display: flex; align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  top: 30px;
+}
+
+.toast-icon { font-size: 24px; margin-right: 15px; }
+
+.toast-loader {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 4px;
+  width: 100%;
+  background: rgba(255,255,255,.3);
+  overflow: hidden;
+}
+
+.toast-loader::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: white;
+  transform: translateX(0);
+  animation: loader 3s linear forwards;
+}
+
+@keyframes loader {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}

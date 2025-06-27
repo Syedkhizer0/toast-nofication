@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Toast Notification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+
+    .button-container {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .toast-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+    .toast {
+      background-color: #333;
+      color: white;
+      padding: 15px 20px;
+      margin-top: 10px;
+      border-radius: 5px;
+      width: 300px;
+      height: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInOut 4s forwards;
+      font-size: large;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+   .toast.error::after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        height: 5px;
+        background-color: red;
+        animation: anim 3.6s linear forwards;
+    }
+    .toast.invalid::after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        height: 5px;
+        background-color: orange;
+        animation: anim 3.6s linear forwards;
+    }
+    .toast.submitted::after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        height: 5px;
+        background-color: green;
+        animation: anim 3.6s linear forwards;
+    }
+   
+    @keyframes anim {
+      100%{
+        width: 0;
+      }
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      10%, 90% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+
+    .toast i {
+        margin-right: 10px;
+        font-size: large;
+    }
+
+    .toast.error i {
+        color: red;
+    }
+    .toast.invalid i {
+        color: orange;
+    }
+    .toast.submitted i {
+        color: green;
+    }
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <div class="button-container">
+    <button onclick="showToast(success)">Option 1</button>
+    <button onclick="showToast(invalid)">Option 2</button>
+    <button onclick="showToast(showError)">Option 3</button>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    const success = ` <i class="fa-solid fa-circle-check"></i> Successfully Submitted`
+    var invalid = ` <i class="fa-solid fa-circle-exclamation"></i> Invalid input,check again`
+    var showError = `<i class="fa-solid fa-circle-xmark"></i> Please fix the Error`
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = message;
+
+      const container = document.getElementById('toastContainer');
+      container.appendChild(toast);
+
+      if(message.includes("Error")) {
+        toast.classList.add("error");
+      }
+      if(message.includes("Invalid")) {
+        toast.classList.add("invalid");
+      }
+      if(message.includes("Submitted")) {
+        toast.classList.add("submitted");
+      }
+
+      setTimeout(() => {
+        toast.remove();
+      }, 4000);
+    }
+  </script>
+  
+
+</body>
+</html>
